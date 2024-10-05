@@ -1,14 +1,9 @@
-name: Catalog Service
-
 on:
   push:
     paths:
       - catalog-service/**
     branches:
       - '**'
-  pull_request:
-    branches: [main]
-
 jobs:
   build:
     name: Build
@@ -28,10 +23,5 @@ jobs:
           distribution: 'liberica'
           cache: 'maven'
 
-      - name: Build with Maven
+      - name: Build with maven
         run: ./mvnw -ntp verify
-
-      - if: ${{ github.ref == 'refs/heads/main' }}
-        name: Build Docker Image
-        run: |
-          ./mvnw spring-boot:build-image -DskipTests
